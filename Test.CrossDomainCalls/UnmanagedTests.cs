@@ -18,26 +18,27 @@ namespace Test.CrossDomainCalls
         {
             ProcessWrapper pw = new ProcessWrapper();
 
-            Console.WriteLine("\n--- Simple logger TEST 1 - Callback from unmanaged code - same thread");
+            FileLogger.WriteLine("\n--- Simple logger TEST 1 - Callback from unmanaged code - same thread");
             pw.TestSimpleManagedLogger();
         }
 
         [Test]
-        [Ignore("This test would crash the nunit UI runner")]
         public void TestSimpleManagedLoggerFromThread()
         {
             ProcessWrapper pw = new ProcessWrapper();
 
-            Console.WriteLine("\n--- Simple logger TEST 2 - Callback from unmanaged code - another thread");
+            FileLogger.WriteLine("\n--- Simple logger TEST 2 - Callback from unmanaged code - another thread");
             pw.TestSimpleManagedLoggerFromThread();
         }
 
         [Test]
         public void TestCrossDomainManagedLogger()
         {
+            //CrossAppDomainManagedLogger.Instance.logger = new SimpleManagedLogger();
+
             ProcessWrapper pw = new ProcessWrapper();
 
-            Console.WriteLine("\n--- Cross AD logger TEST 1 - Callback from unmanaged code - same thread");
+            FileLogger.WriteLine("\n--- Cross AD logger TEST 1 - Callback from unmanaged code - same thread");
             pw.TestCrossAppDomainManagedLogger();
         }
 
@@ -46,9 +47,11 @@ namespace Test.CrossDomainCalls
         // This is done by a post build event
         public void TestCrossDomainManagedLoggerFromThread()
         {
+            //CrossAppDomainManagedLogger.Instance.logger = new SimpleManagedLogger();
+
             ProcessWrapper pw = new ProcessWrapper();
 
-            Console.WriteLine("\n--- Cross AD logger TEST 2 - Callback from unmanaged code - another thread");
+            FileLogger.WriteLine("\n--- Cross AD logger TEST 2 - Callback from unmanaged code - another thread");
             pw.TestCrossAppDomainManagedLoggerFromThread();
         }
     }

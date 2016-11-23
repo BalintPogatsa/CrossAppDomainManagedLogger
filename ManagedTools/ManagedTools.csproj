@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainHelper.cs" />
+    <Compile Include="FileLogger.cs" />
     <Compile Include="Logging\CrossAppDomainManagedLogger.cs" />
     <Compile Include="CrossAppDomainSingleton.cs" />
     <Compile Include="Logging\IManagedLogger.cs" />

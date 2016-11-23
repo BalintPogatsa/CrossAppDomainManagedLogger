@@ -6,7 +6,7 @@ using namespace System::Runtime::InteropServices;
 
 LoggerBridge::LoggerBridge(ManagedTools::IManagedLogger^ managedLogger)
 {
-	Console::WriteLine("Unmanaged object created in domain: " + AppDomain::CurrentDomain->FriendlyName + " (" + AppDomain::CurrentDomain->Id + ")");
+	ManagedTools::FileLogger::WriteLine("Unmanaged object created in domain: " + AppDomain::CurrentDomain->FriendlyName + " (" + AppDomain::CurrentDomain->Id + ")");
 	
 	// A void pointer is used to store the gcroot
 	// with gcroot as a member variable the callback from unmanaged thread would throw an InvalidOperationException: handle is not initialized
@@ -16,20 +16,20 @@ LoggerBridge::LoggerBridge(ManagedTools::IManagedLogger^ managedLogger)
 
 void LoggerBridge::Log(std::string const& message)
 {
-	Console::WriteLine("Callback from domain: " + AppDomain::CurrentDomain->FriendlyName + " (" + AppDomain::CurrentDomain->Id + ")");
+	ManagedTools::FileLogger::WriteLine("Callback from domain: " + AppDomain::CurrentDomain->FriendlyName + " (" + AppDomain::CurrentDomain->Id + ")");
 	String^ msg = gcnew String(message.c_str());
 
 	try
 	{
 		if (mManagedLogger == nullptr)
 		{
-			Console::WriteLine("gcroot doesn't not exist anymore");
+			ManagedTools::FileLogger::WriteLine("gcroot doesn't not exist anymore");
 			return;
 		}
 
 		if (static_cast<ManagedTools::IManagedLogger^>(*mManagedLogger) == nullptr)
 		{
-			Console::WriteLine("managed logger doesn't not exist anymore");
+			ManagedTools::FileLogger::WriteLine("managed logger doesn't not exist anymore");
 			return;
 		}
 
@@ -39,11 +39,11 @@ void LoggerBridge::Log(std::string const& message)
 	}
 	catch (Exception^ ex)
 	{
-		Console::WriteLine("Exception when handling callback: {0} {1}", ex->ToString(), ex->Message);
+		ManagedTools::FileLogger::WriteLine("Exception when handling callback: {0} {1}", ex->ToString(), ex->Message);
 	}
 	catch (...)
 	{
-		Console::WriteLine("Unmanaged exception when handling callback");
+		ManagedTools::FileLogger::WriteLine("Unmanaged exception when handling callback");
 	}
 }
 

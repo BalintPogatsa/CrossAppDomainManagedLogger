@@ -9,7 +9,8 @@ namespace ManagedTools
     {
         public void Log(string message)
         {
-            Console.WriteLine("SIMPLE LOGGER: " + message);
+            FileLogger.WriteLine("AppDomain: " + AppDomain.CurrentDomain.FriendlyName);
+            FileLogger.WriteLine("SIMPLE LOGGER: " + message);
         }
     }
 }
